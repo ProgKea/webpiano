@@ -5,16 +5,16 @@ const KEY_DOWN_COLOR = "#9090EE";
 const PIANO_WIDTH = 793;
 const PIANO_HEIGHT = 300;
 const KEYS = "1!2\"34$5%6&78(9)0qQwWeErtTyYuiIoOpPasSdDfgGhHjJklLzZxcCvVbBnm";
-function generateNoteBinding(keys, audios) {
-    console.assert(keys.length === audios.length);
-    let bindings = [];
-    for (let i = 0; i < keys.length; ++i) {
-        const binding = new Map;
-        binding.set(keys[i], audios[i]);
-        bindings.push(binding);
-    }
-    return bindings;
-}
+// function generateNoteBinding(keys: string, audios: HTMLAudioElement[]): NoteBinding[] {
+//     console.assert(keys.length === audios.length);
+//     let bindings: NoteBinding[] = [];
+//     for (let i = 0; i < keys.length; ++i) {
+//         const binding: NoteBinding = new Map;
+//         binding.set(keys[i], audios[i]);
+//         bindings.push(binding);
+//     }
+//     return bindings;
+// }
 function joinPath(a, b) {
     return [a, b].join(a.endsWith("/") ? "" : "/");
 }
@@ -114,7 +114,6 @@ window.onload = () => {
     }
     let pianoType = getCheckedInput(buttonElements).value;
     let audios = createAudios(`./piano_sounds/${pianoType}`, notes);
-    let bindings = generateNoteBinding(KEYS, audios);
     const piano = getElementByIdOrError("piano");
     piano.width = PIANO_WIDTH;
     piano.height = PIANO_HEIGHT;
@@ -123,26 +122,27 @@ window.onload = () => {
         throw new Error(`Could not initialize 2d context`);
     }
     const pianoStylePicker = getElementByIdOrError("pianoStyle");
+    const volumeSlider = getElementByIdOrError("volumeSlider");
     pianoStylePicker.addEventListener("change", (_) => {
         pianoType = getCheckedInput(buttonElements).value;
         audios = createAudios(`./piano_sounds/${pianoType}`, notes);
-        bindings = generateNoteBinding(KEYS, audios);
+        for (let i = 0; i < audios.length; ++i) {
+            audios[i].volume = parseInt(volumeSlider.value) / 100;
+        }
     });
-    const volumeSlider = getElementByIdOrError("volumeSlider");
     volumeSlider.addEventListener("mouseup", (_) => {
-        for (let i = 0; i < bindings.length; ++i) {
+        for (let i = 0; i < KEYS.length; ++i) {
             pianoType = getCheckedInput(buttonElements).value;
             for (let i = 0; i < audios.length; ++i) {
                 audios[i].volume = parseInt(volumeSlider.value) / 100;
             }
-            bindings = generateNoteBinding(KEYS, audios);
         }
     });
     renderPiano(pianoCtx, notes);
     document.addEventListener("keydown", (e) => {
-        for (let i = 0; i < bindings.length; ++i) {
-            const audio = bindings[i].get(e.key);
-            if (audio !== undefined) {
+        for (let i = 0; i < KEYS.length; ++i) {
+            if (e.key == KEYS[i]) {
+                const audio = audios[i];
                 audio.currentTime = 0;
                 audio.play();
                 notes[i].down = true;
@@ -151,7 +151,7 @@ window.onload = () => {
         renderPiano(pianoCtx, notes);
     });
     document.addEventListener("keyup", (_) => {
-        for (let i = 0; i < bindings.length; ++i) {
+        for (let i = 0; i < KEYS.length; ++i) {
             notes[i].down = false;
         }
         renderPiano(pianoCtx, notes);

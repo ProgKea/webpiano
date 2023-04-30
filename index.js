@@ -128,6 +128,16 @@ window.onload = () => {
         audios = createAudios(`./piano_sounds/${pianoType}`, notes);
         bindings = generateNoteBinding(KEYS, audios);
     });
+    const volumeSlider = getElementByIdOrError("volumeSlider");
+    volumeSlider.addEventListener("mouseup", (_) => {
+        for (let i = 0; i < bindings.length; ++i) {
+            pianoType = getCheckedInput(buttonElements).value;
+            for (let i = 0; i < audios.length; ++i) {
+                audios[i].volume = parseInt(volumeSlider.value) / 100;
+            }
+            bindings = generateNoteBinding(KEYS, audios);
+        }
+    });
     renderPiano(pianoCtx, notes);
     document.addEventListener("keydown", (e) => {
         for (let i = 0; i < bindings.length; ++i) {
@@ -147,3 +157,4 @@ window.onload = () => {
         renderPiano(pianoCtx, notes);
     });
 };
+// TODO: remove bindings type, because it is not needed

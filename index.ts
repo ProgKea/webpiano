@@ -7,24 +7,14 @@ const PIANO_HEIGHT = 300;
 
 const KEYS = "1!2\"34$5%6&78(9)0qQwWeErtTyYuiIoOpPasSdDfgGhHjJklLzZxcCvVbBnm";
 
+const KEY_WIDTH = Math.floor(PIANO_WIDTH/KEYS.length);
+const SHARP_HEIGHT = PIANO_HEIGHT/2;
+
 interface Note {
     note: string,
     sharp: boolean,
     down: boolean,
 }
-
-// function generateNoteBinding(keys: string, audios: HTMLAudioElement[]): NoteBinding[] {
-//     console.assert(keys.length === audios.length);
-
-//     let bindings: NoteBinding[] = [];
-//     for (let i = 0; i < keys.length; ++i) {
-//         const binding: NoteBinding = new Map;
-//         binding.set(keys[i], audios[i]);
-//         bindings.push(binding);
-//     }
-
-//     return bindings;
-// }
 
 function joinPath(a: string, b: string): string {
     return [a, b].join(a.endsWith("/") ? "" : "/");
@@ -69,9 +59,6 @@ function createAudios(dir: string, notes: Note[]): HTMLAudioElement[] {
 
 function renderPiano(ctx: CanvasRenderingContext2D, notes: Note[]) {
     console.assert(PIANO_WIDTH%KEYS.length === 0);
-    const KEY_WIDTH = Math.floor(PIANO_WIDTH/KEYS.length);
-    const SHARP_HEIGHT = PIANO_HEIGHT/2;
-
     let keyHeight = PIANO_HEIGHT;
     ctx.fillStyle = KEY_COLOR;
     ctx.fillRect(0, 0, PIANO_WIDTH, PIANO_HEIGHT);
@@ -87,6 +74,8 @@ function renderPiano(ctx: CanvasRenderingContext2D, notes: Note[]) {
 
         if (notes[i].down) ctx.fillStyle = KEY_DOWN_COLOR;
         ctx.fillRect(i*KEY_WIDTH, 0, KEY_WIDTH, keyHeight);
+        ctx.fillStyle = notes[i].sharp ? KEY_COLOR : KEY_SHARP_COLOR;
+        ctx.fillText(KEYS[i], i*KEY_WIDTH+KEY_WIDTH/4, keyHeight-50, KEY_WIDTH);
     }
 }
 
@@ -156,7 +145,7 @@ window.onload = () => {
         }
     });
 
-    volumeSlider.addEventListener("mouseup", (_) => {
+    volumeSlider.addEventListener("change", (_) => {
         for (let i = 0; i < KEYS.length; ++i) {
             pianoType = (getCheckedInput(buttonElements) as HTMLInputElement).value;
             for (let i = 0; i < audios.length; ++i) {
@@ -187,5 +176,3 @@ window.onload = () => {
         renderPiano(pianoCtx, notes);
     });
 };
-
-// TODO: remove bindings type, because it is not needed

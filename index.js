@@ -5,16 +5,8 @@ const KEY_DOWN_COLOR = "#9090EE";
 const PIANO_WIDTH = 793;
 const PIANO_HEIGHT = 300;
 const KEYS = "1!2\"34$5%6&78(9)0qQwWeErtTyYuiIoOpPasSdDfgGhHjJklLzZxcCvVbBnm";
-// function generateNoteBinding(keys: string, audios: HTMLAudioElement[]): NoteBinding[] {
-//     console.assert(keys.length === audios.length);
-//     let bindings: NoteBinding[] = [];
-//     for (let i = 0; i < keys.length; ++i) {
-//         const binding: NoteBinding = new Map;
-//         binding.set(keys[i], audios[i]);
-//         bindings.push(binding);
-//     }
-//     return bindings;
-// }
+const KEY_WIDTH = Math.floor(PIANO_WIDTH / KEYS.length);
+const SHARP_HEIGHT = PIANO_HEIGHT / 2;
 function joinPath(a, b) {
     return [a, b].join(a.endsWith("/") ? "" : "/");
 }
@@ -53,8 +45,6 @@ function createAudios(dir, notes) {
 }
 function renderPiano(ctx, notes) {
     console.assert(PIANO_WIDTH % KEYS.length === 0);
-    const KEY_WIDTH = Math.floor(PIANO_WIDTH / KEYS.length);
-    const SHARP_HEIGHT = PIANO_HEIGHT / 2;
     let keyHeight = PIANO_HEIGHT;
     ctx.fillStyle = KEY_COLOR;
     ctx.fillRect(0, 0, PIANO_WIDTH, PIANO_HEIGHT);
@@ -70,6 +60,8 @@ function renderPiano(ctx, notes) {
         if (notes[i].down)
             ctx.fillStyle = KEY_DOWN_COLOR;
         ctx.fillRect(i * KEY_WIDTH, 0, KEY_WIDTH, keyHeight);
+        ctx.fillStyle = notes[i].sharp ? KEY_COLOR : KEY_SHARP_COLOR;
+        ctx.fillText(KEYS[i], i * KEY_WIDTH + KEY_WIDTH / 4, keyHeight - 50, KEY_WIDTH);
     }
 }
 function getCheckedInput(buttons) {
@@ -130,7 +122,7 @@ window.onload = () => {
             audios[i].volume = parseInt(volumeSlider.value) / 100;
         }
     });
-    volumeSlider.addEventListener("mouseup", (_) => {
+    volumeSlider.addEventListener("change", (_) => {
         for (let i = 0; i < KEYS.length; ++i) {
             pianoType = getCheckedInput(buttonElements).value;
             for (let i = 0; i < audios.length; ++i) {
@@ -157,4 +149,3 @@ window.onload = () => {
         renderPiano(pianoCtx, notes);
     });
 };
-// TODO: remove bindings type, because it is not needed

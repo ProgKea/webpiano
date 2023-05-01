@@ -52,6 +52,7 @@ d gp hgf sf dsa sd f|s p p
 ```
 
 Day one (interstellar)
+
 ``` txt
 u|u|u|u|u|u|u|u|
 [eup]|u|u|[rua]|u|u|u|u|u|
@@ -90,4 +91,22 @@ u|u|u|u|u|u|u|u|
 [5r]|f||r|f||
 [6t]|f||t|f||
 [5y]|f||y|f|a|[3uf]
+```
+
+Mii
+
+``` txt
+p sf s piii| uipsf s ph|Gg|
+a fp f a f Pp o ooo| ooo|
+I i u sf s piii hhh|psf s ph| g|
+dPiu dPuspYy Oiyooo| Sdfgjl|||
+t T y|Ty| tTyp uy|Ty|||
+y Y u|Yu| uYua Iu|Iy|||
+ooo p sf s piii| uipsf s ph|Gg|
+a fp f a f Pp o ooo| ooo|
+I i u sf s piii hhh|psf s ph| g|
+dPiu dPuspYy Oiyooo| Sdfgjl|||
+t T y|Ty| tTyp uy|Ty|||
+y Y u|Yu| uYua Iu|Iy|||
+ooo p sf s p
 ```

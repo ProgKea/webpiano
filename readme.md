@@ -3,6 +3,7 @@
 Some songs you could try:
 
 Great fairy fountain:
+
 ``` txt
 f p i y d p i y
 S p i y d p i y
@@ -109,4 +110,17 @@ dPiu dPuspYy Oiyooo| Sdfgjl|||
 t T y|Ty| tTyp uy|Ty|||
 y Y u|Yu| uYua Iu|Iy|||
 ooo p sf s p
+```
+
+Harry Potter:
+``` txt
+a f h G f k j G|
+f h G d g a|
+a f h G f k z L l|
+j l k J a h f|
+hk|hk|hlkJ|hG lk ah l|
+hk|hk|HzLl|
+hLlkahf|
+r u o I u a p I u o I Y i r|
+r u o I u a d S s O s a P p o u
 ```

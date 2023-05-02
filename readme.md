@@ -44,7 +44,7 @@ Tetris:
 
 ``` txt
 f asd sap psf dsa|sd f s p p|
-d gp hgf|sf dsa|sd f s p p|
+d gj hgf|sf dsa|sd f s p p|
 f| s| d| a| s| p| O|||
 f| s| d| a| s f p p O|||
 f asd sap psf dsa|sd f s p p|

@@ -133,9 +133,9 @@ window.onload = () => {
     renderPiano(pianoCtx, notes);
     document.addEventListener("keydown", (e) => {
         for (let i = 0; i < KEYS.length; ++i) {
-            if (notes[i].down)
-                return;
             if (e.key == KEYS[i]) {
+                if (notes[i].down)
+                    return;
                 const audio = audios[i];
                 audio.currentTime = 0;
                 audio.play();

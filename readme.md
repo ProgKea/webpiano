@@ -27,8 +27,6 @@ $ nix develop
 
 ## Songs
 
-Some songs you could try:
-
 Great fairy fountain:
 
 ``` txt
@@ -121,7 +119,7 @@ u|u|u|u|u|u|u|u|
 [5y]|f||y|f|a|[3uf]
 ```
 
-Mii
+Mii theme:
 
 ``` txt
 p sf s piii| uipsf s ph|Gg|

@@ -1,5 +1,32 @@
 # Webpiano
 
+A simple piano.
+
+## Usage
+
+Go to https://progkea.github.io/webpiano/ and start playing.
+
+## Developing
+
+To get started developing:
+``` console
+$ git clone https://github.com/ProgKea/gorillatap
+$ npm install
+$ npx tsc -watch
+$ live-server or $ python -m http.server
+```
+
+The only dependency is typescript so the installation shouldn't take too long.
+
+### Nix
+
+If you are using the nix package manager you can do the following to install everything you need to develop:
+``` console
+$ nix develop
+```
+
+## Songs
+
 Some songs you could try:
 
 Great fairy fountain:
